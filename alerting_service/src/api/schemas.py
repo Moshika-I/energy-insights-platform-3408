@@ -25,3 +25,8 @@ class AlertOut(BaseModel):
     message: str
     status: str
     channel: str
+    created_at: str | None = Field(default=None, description="Alert creation timestamp (ISO8601).")
+
+    # Notification stubs (future extensibility)
+    delivered_at: str | None = Field(default=None, description="When delivery occurred (if applicable).")
+    read_at: str | None = Field(default=None, description="When recipient read the alert (if applicable).")

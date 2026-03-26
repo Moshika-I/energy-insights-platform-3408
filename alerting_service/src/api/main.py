@@ -75,7 +75,10 @@ async def internal_trigger_alert(payload: AlertTrigger) -> AlertOut:
                   user_id::text AS user_id,
                   meter_id::text AS meter_id,
                   analytics_output_id::text AS analytics_output_id,
-                  severity, title, message, status, channel
+                  severity, title, message, status, channel,
+                  created_at::text AS created_at,
+                  delivered_at::text AS delivered_at,
+                  read_at::text AS read_at
         """,
         payload.model_dump(),
     )
@@ -106,7 +109,10 @@ async def internal_list_alerts(
                user_id::text AS user_id,
                meter_id::text AS meter_id,
                analytics_output_id::text AS analytics_output_id,
-               severity, title, message, status, channel
+               severity, title, message, status, channel,
+               created_at::text AS created_at,
+               delivered_at::text AS delivered_at,
+               read_at::text AS read_at
         FROM alerts
         WHERE tenant_id = :tenant_id::uuid
           AND (:user_id IS NULL OR user_id = :user_id::uuid)
